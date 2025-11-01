@@ -53,12 +53,14 @@ echo 'Setting Traefik'
 {
   prompt_var "TRAEFIK_ACME_EMAIL"
   prompt_var "TRAEFIK_HOSTNAME"
-  echo "Setting the password for TRAEFIK_BASIC_AUTH (user: traefikadmin)"
+} > .traefik
+echo "Setting the password for TRAEFIK_BASIC_AUTH (user: traefikadmin)" 
+{
   read -s -p "Please, set a secure password for traefikadmin: " traefik_pass
   echo
   basic_auth=$(htpasswd -nb traefikadmin "$traefik_pass" | sed 's/\\$/\\\\$/g')
   echo "TRAEFIK_BASIC_AUTH='${basic_auth}'"
-} > .traefik.env
+} >> .traefik.env
 
 # Wordpress
 echo 'Setting WordPress...'
